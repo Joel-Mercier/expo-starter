@@ -1,22 +1,40 @@
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
-import { FormControl, FormControlError, FormControlErrorIcon, FormControlErrorText, FormControlHelper, FormControlHelperText } from "@/components/ui/form-control";
+import { Center } from "@/components/ui/center";
+import {
+  FormControl,
+  FormControlError,
+  FormControlErrorIcon,
+  FormControlErrorText,
+  FormControlHelper,
+  FormControlHelperText,
+} from "@/components/ui/form-control";
 import { Heading } from "@/components/ui/heading";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form"
-import { AlertCircleIcon, EyeIcon, EyeOffIcon, Lock, Mail } from "lucide-react-native";
-import { Link, useRouter } from "expo-router";
-import { Center } from "@/components/ui/center";
-import { LoginParams, useSupabaseLogin } from "@/hooks/useSupabaseAuth";
-import { Toast, ToastDescription, ToastTitle, useToast } from "@/components/ui/toast";
+import {
+  Toast,
+  ToastDescription,
+  ToastTitle,
+  useToast,
+} from "@/components/ui/toast";
+import { type LoginParams, useSupabaseLogin } from "@/hooks/useSupabaseAuth";
 import useAuth from "@/stores/authStore";
+import { Link, useRouter } from "expo-router";
+import {
+  AlertCircleIcon,
+  EyeIcon,
+  EyeOffIcon,
+  Lock,
+  Mail,
+} from "lucide-react-native";
+import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 export default function LoginScreen() {
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const doLogin = useSupabaseLogin();
-  const toast = useToast()
+  const toast = useToast();
   const setSession = useAuth.use.setSession();
   const router = useRouter();
 
@@ -29,10 +47,10 @@ export default function LoginScreen() {
       email: __DEV__ ? "admin@admin.com" : "",
       password: __DEV__ ? "abcd1234" : "",
     },
-  })
+  });
 
   const onSubmit = (data: LoginParams) => {
-    console.log(data)
+    console.log(data);
     doLogin.mutate(data, {
       onSuccess: ({ data, error }) => {
         if (error) {
@@ -44,25 +62,27 @@ export default function LoginScreen() {
                 <ToastTitle>Error</ToastTitle>
                 <ToastDescription>{error.message}</ToastDescription>
               </Toast>
-            )
-          })
-          console.error('error', error.message)
-          return
+            ),
+          });
+          console.error("error", error.message);
+          return;
         }
         if (data.session && data.user) {
-          setSession(data.session)
+          setSession(data.session);
           toast.show({
             placement: "top",
             duration: 3000,
             render: () => (
               <Toast action="success">
                 <ToastTitle>Success</ToastTitle>
-                <ToastDescription>You have been successfully logged in</ToastDescription>
+                <ToastDescription>
+                  You have been successfully logged in
+                </ToastDescription>
               </Toast>
-            )
-          })
-          router.replace("/(app)/(tabs)")
-        } 
+            ),
+          });
+          router.replace("/(app)/(tabs)");
+        }
       },
       onError: (error) => {
         toast.show({
@@ -71,16 +91,18 @@ export default function LoginScreen() {
           render: () => (
             <Toast action="error">
               <ToastTitle>Error</ToastTitle>
-              <ToastDescription>An error occured while signing in with your account</ToastDescription>
+              <ToastDescription>
+                An error occured while signing in with your account
+              </ToastDescription>
             </Toast>
-          )
-        })
-        console.error('error', error.message)
-      }
-    })
-  }
+          ),
+        });
+        console.error("error", error.message);
+      },
+    });
+  };
 
-	return (
+  return (
     <SafeAreaView>
       <Box className="px-8">
         <Heading className="mb-6">Login</Heading>
@@ -111,14 +133,12 @@ export default function LoginScreen() {
                   onBlur={onBlur}
                 />
               </Input>
-              {errors.email && 
+              {errors.email && (
                 <FormControlError>
                   <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>
-                    Email required
-                  </FormControlErrorText>
+                  <FormControlErrorText>Email required</FormControlErrorText>
                 </FormControlError>
-              }
+              )}
             </FormControl>
           )}
           name="email"
@@ -148,10 +168,11 @@ export default function LoginScreen() {
                   onChangeText={onChange}
                   onBlur={onBlur}
                 />
-                <InputSlot className="pr-3" onPress={() => setShowPassword(!showPassword)}>
-                  <InputIcon
-                    as={showPassword ? EyeIcon : EyeOffIcon}
-                  />
+                <InputSlot
+                  className="pr-3"
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
                 </InputSlot>
               </Input>
               <FormControlHelper>
@@ -159,14 +180,12 @@ export default function LoginScreen() {
                   At least 6 characters
                 </FormControlHelperText>
               </FormControlHelper>
-              {errors.password && 
+              {errors.password && (
                 <FormControlError>
                   <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>
-                    Password required
-                  </FormControlErrorText>
+                  <FormControlErrorText>Password required</FormControlErrorText>
                 </FormControlError>
-              }
+              )}
             </FormControl>
           )}
           name="password"
@@ -181,7 +200,7 @@ export default function LoginScreen() {
             </Button>
           </Link>
           <Link href={"/(auth)/register"} asChild>
-          <Button action="primary" variant="link">
+            <Button action="primary" variant="link">
               <ButtonText>Don't have an account? Sign up</ButtonText>
             </Button>
           </Link>

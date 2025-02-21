@@ -1,11 +1,15 @@
+import { Box } from "@/components/ui/box";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
+import { HStack } from "@/components/ui/hstack";
 import { themeConfig } from "@/config/theme";
 import { Check } from "lucide-react-native";
-import { Box } from "@/components/ui/box";
-import { HStack } from "@/components/ui/hstack";
 
-export default function PostItem({ post }: { post: { title: string; is_active: boolean } }) {
+interface PostItemProps {
+  post: { title: string; is_active: boolean };
+}
+
+export default function PostItem({ post }: PostItemProps) {
   return (
     <Card size="lg" variant="filled" className="mb-3">
       <HStack className="items-center">
@@ -14,12 +18,11 @@ export default function PostItem({ post }: { post: { title: string; is_active: b
             <Check size={16} color={themeConfig.theme.colors.emerald[500]} />
           </Box>
         ) : (
-          <Box className="w-6 h-6 rounded-full me-2 items-center justify-center">
-          
-          </Box>
+          <Box className="w-6 h-6 rounded-full me-2 items-center justify-center" />
         )}
-        <Heading size="md" className="mb-1">{post.title}</Heading>
-        
+        <Heading size="md" className="mb-1">
+          {post.title}
+        </Heading>
       </HStack>
     </Card>
   );

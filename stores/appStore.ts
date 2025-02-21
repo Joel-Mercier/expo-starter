@@ -15,7 +15,7 @@ const useAppBase = create<AppStore>()((set) => ({
   theme: "light",
   setTheme: (theme: Theme) => {
     set(() => {
-      AsyncStorage.setItem("theme", theme);
+      ThemeStorage.storeTheme(theme);
       return { theme };
     });
   },

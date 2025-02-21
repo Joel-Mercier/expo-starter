@@ -4,4 +4,4 @@ const extra = Constants.expoConfig?.extra;
 
 const API_URL = extra?.API_URL ?? "";
 
-export { API_URL }
+export { API_URL };

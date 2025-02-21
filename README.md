@@ -31,6 +31,8 @@ npm install
 
 Git-flow is a popular branching model that helps you manage your codebase. Follow the instructions in the [setup guide](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to set up git-flow on your local machine.
 
+The development branch is `develop`. The production branch is `main`. To start a new feature, go to the `develop` branch and run `git flow feature start <feature-name>`. After completing the feature, run `git flow feature finish <feature-name>` to merge the feature into the `develop` branch. You shoudl not push directly to the `main` branch.
+
 ### 4. Configure environment variables
 
 Copy the `.env.example` file to `.env` and fill in the values.

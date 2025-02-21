@@ -1,36 +1,48 @@
+import {
+  AlertDialog,
+  AlertDialogBackdrop,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+} from "@/components/ui/alert-dialog";
 import { Box } from "@/components/ui/box";
+import { ButtonText } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Center } from "@/components/ui/center";
 import { Divider } from "@/components/ui/divider";
 import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
+import { Pressable } from "@/components/ui/pressable";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
+import { Switch } from "@/components/ui/switch";
+import { Text } from "@/components/ui/text";
+import {
+  Toast,
+  ToastDescription,
+  ToastTitle,
+  useToast,
+} from "@/components/ui/toast";
 import { VStack } from "@/components/ui/vstack";
 import { themeConfig } from "@/config/theme";
-import { ChevronRight, Icon, LogOut, TrashIcon } from "lucide-react-native";
-import { Pressable } from "@/components/ui/pressable"
 import { useSupabaseLogout } from "@/hooks/useSupabaseAuth";
-import { Toast, ToastDescription, ToastTitle, useToast } from "@/components/ui/toast";
-import useAuth from "@/stores/authStore";
-import { AlertDialog, AlertDialogBackdrop, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter } from "@/components/ui/alert-dialog";
-import { ButtonText } from "@/components/ui/button";
-import { Button } from "@/components/ui/button";
-import { Text } from "@/components/ui/text";
-import { useState } from "react";
-import { Switch } from "@/components/ui/switch";
 import useApp from "@/stores/appStore";
-import * as Application from 'expo-application';
-import { Center } from "@/components/ui/center";
+import useAuth from "@/stores/authStore";
+import * as Application from "expo-application";
+import { ChevronRight, Icon, LogOut, TrashIcon } from "lucide-react-native";
+import { useState } from "react";
 
 export default function SettingsScreen() {
-  const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false)
-  const handleClose = () => setShowAlertDialog(false)
+  const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
+  const handleClose = () => setShowAlertDialog(false);
   const doLogout = useSupabaseLogout();
-  const toast = useToast()
-  const setSession = useAuth.use.setSession()
-  const setAccount = useAuth.use.setAccount()
-  const toggleTheme = useApp.use.toggleTheme()
-  const theme = useApp.use.theme()
-  
+  const toast = useToast();
+  const setSession = useAuth.use.setSession();
+  const setAccount = useAuth.use.setAccount();
+  const toggleTheme = useApp.use.toggleTheme();
+  const theme = useApp.use.theme();
+
   const handleLogout = () => {
     doLogout.mutate(undefined, {
       onSuccess: ({ error }) => {
@@ -41,23 +53,27 @@ export default function SettingsScreen() {
             render: () => (
               <Toast action="error">
                 <ToastTitle>Error</ToastTitle>
-                <ToastDescription>An error occured while signing out</ToastDescription>
+                <ToastDescription>
+                  An error occured while signing out
+                </ToastDescription>
               </Toast>
-            )
-          })
+            ),
+          });
         } else {
-          setSession(null)
-          setAccount(null)
+          setSession(null);
+          setAccount(null);
           toast.show({
             placement: "top",
             duration: 3000,
             render: () => (
               <Toast action="success">
                 <ToastTitle>Success</ToastTitle>
-                <ToastDescription>You have been successfully logged out</ToastDescription>
+                <ToastDescription>
+                  You have been successfully logged out
+                </ToastDescription>
               </Toast>
-            )
-          })
+            ),
+          });
         }
       },
       onError: (error) => {
@@ -67,18 +83,22 @@ export default function SettingsScreen() {
           render: () => (
             <Toast action="error">
               <ToastTitle>Error</ToastTitle>
-              <ToastDescription>An error occured while signing out</ToastDescription>
+              <ToastDescription>
+                An error occured while signing out
+              </ToastDescription>
             </Toast>
-          )
-        })
-      }
-    })
-  }
+          ),
+        });
+      },
+    });
+  };
 
   return (
     <SafeAreaView>
       <Box className="px-8">
-        <Heading size="xl" className="mb-6">Settings</Heading>
+        <Heading size="xl" className="mb-6">
+          Settings
+        </Heading>
       </Box>
       <Box>
         <VStack>
@@ -87,19 +107,27 @@ export default function SettingsScreen() {
               <Heading size="md" className="mb-1">
                 Edit profile
               </Heading>
-              <ChevronRight size={24} color={themeConfig.theme.colors.gray[500]} />
+              <ChevronRight
+                size={24}
+                color={themeConfig.theme.colors.gray[500]}
+              />
             </HStack>
           </Card>
           <Divider />
           <Card size="lg" variant="ghost" className="px-8">
             <HStack className="justify-between">
-              <Heading size="md" className="mb-1">Dark mode</Heading>
+              <Heading size="md" className="mb-1">
+                Dark mode
+              </Heading>
               <Switch
                 value={theme === "dark"}
                 defaultValue={false}
                 size="sm"
                 isDisabled={false}
-                trackColor={{ false: themeConfig.theme.colors.gray[50], true: themeConfig.theme.colors.primary[500] }}
+                trackColor={{
+                  false: themeConfig.theme.colors.gray[50],
+                  true: themeConfig.theme.colors.primary[500],
+                }}
                 thumbColor={"#FFF"}
                 ios_backgroundColor={themeConfig.theme.colors.gray[50]}
                 onChange={() => toggleTheme()}
@@ -108,14 +136,14 @@ export default function SettingsScreen() {
           </Card>
           <Divider />
           <Pressable onPress={() => setShowAlertDialog(true)}>
-          <Card size="lg" variant="ghost" className="px-8">
-            <HStack className="justify-between">
-              <Heading size="md" className="mb-1 text-red-800">
-                Log out
-              </Heading>
-              <LogOut size={24} color={themeConfig.theme.colors.red[800]} />
-            </HStack>
-          </Card>
+            <Card size="lg" variant="ghost" className="px-8">
+              <HStack className="justify-between">
+                <Heading size="md" className="mb-1 text-red-800">
+                  Log out
+                </Heading>
+                <LogOut size={24} color={themeConfig.theme.colors.red[800]} />
+              </HStack>
+            </Card>
           </Pressable>
         </VStack>
         <Center>
@@ -134,11 +162,7 @@ export default function SettingsScreen() {
             </Text>
           </AlertDialogBody>
           <AlertDialogFooter className="mt-5">
-            <Button
-              size="sm"
-              action="negative"
-              onPress={handleLogout}
-            >
+            <Button size="sm" action="negative" onPress={handleLogout}>
               <ButtonText>Log out</ButtonText>
             </Button>
             <Button

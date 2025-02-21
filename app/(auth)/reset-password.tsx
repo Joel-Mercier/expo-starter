@@ -1,19 +1,26 @@
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Center } from "@/components/ui/center";
-import { FormControl, FormControlHelper, FormControlHelperText, FormControlError, FormControlErrorIcon, FormControlErrorText } from "@/components/ui/form-control";
+import {
+  FormControl,
+  FormControlError,
+  FormControlErrorIcon,
+  FormControlErrorText,
+  FormControlHelper,
+  FormControlHelperText,
+} from "@/components/ui/form-control";
 import { Heading } from "@/components/ui/heading";
-import { Input, InputSlot, InputIcon, InputField } from "@/components/ui/input";
+import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
 import { useToast } from "@/components/ui/toast";
 import { Link } from "expo-router";
-import { EyeIcon, EyeOffIcon, AlertCircleIcon } from "lucide-react-native";
+import { AlertCircleIcon, EyeIcon, EyeOffIcon } from "lucide-react-native";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 export default function ResetPasswordScreen() {
-  const [showPassword, setShowPassword] = useState<boolean>(false)
-  const toast = useToast()
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const toast = useToast();
 
   const {
     control,
@@ -23,16 +30,16 @@ export default function ResetPasswordScreen() {
     defaultValues: {
       password: "",
     },
-  })
+  });
 
   const onSubmit = (data) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
 
   return (
     <SafeAreaView>
       <Box className="px-8">
-        <Heading className="mb-6">Login</Heading>    
+        <Heading className="mb-6">Login</Heading>
         <Controller
           control={control}
           rules={{
@@ -58,10 +65,11 @@ export default function ResetPasswordScreen() {
                   onChangeText={onChange}
                   onBlur={onBlur}
                 />
-                <InputSlot className="pr-3" onPress={() => setShowPassword(!showPassword)}>
-                  <InputIcon
-                    as={showPassword ? EyeIcon : EyeOffIcon}
-                  />
+                <InputSlot
+                  className="pr-3"
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
                 </InputSlot>
               </Input>
               <FormControlHelper>
@@ -69,14 +77,12 @@ export default function ResetPasswordScreen() {
                   At least 6 characters
                 </FormControlHelperText>
               </FormControlHelper>
-              {errors.password && 
+              {errors.password && (
                 <FormControlError>
                   <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>
-                    Password required
-                  </FormControlErrorText>
+                  <FormControlErrorText>Password required</FormControlErrorText>
                 </FormControlError>
-              }
+              )}
             </FormControl>
           )}
           name="password"
@@ -86,12 +92,12 @@ export default function ResetPasswordScreen() {
         </Button>
         <Center className="mt-6">
           <Link href={"/(auth)/login"} asChild>
-          <Button action="primary" variant="link">
+            <Button action="primary" variant="link">
               <ButtonText>Go to login</ButtonText>
             </Button>
           </Link>
         </Center>
       </Box>
     </SafeAreaView>
-  )
+  );
 }

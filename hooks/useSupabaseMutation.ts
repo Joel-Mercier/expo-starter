@@ -1,11 +1,11 @@
-import { supabase } from "@/services/supabase"
-import { useMutation } from "@tanstack/react-query"
+import { supabase } from "@/services/supabase";
+import { useMutation } from "@tanstack/react-query";
 
 export function useSupabaseMutation<T>(
   tableName: string,
   options?: {
-    onSuccess?: () => void
-  }
+    onSuccess?: () => void;
+  },
 ) {
   return useMutation({
     mutationFn: async (newData: Partial<T>) => {
@@ -13,11 +13,11 @@ export function useSupabaseMutation<T>(
         .from(tableName)
         .insert(newData)
         .select()
-        .single()
+        .single();
 
-      if (error) throw error
-      return data
+      if (error) throw error;
+      return data;
     },
     onSuccess: options?.onSuccess,
-  })
+  });
 }

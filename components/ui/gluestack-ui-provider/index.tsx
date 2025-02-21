@@ -3,51 +3,51 @@ import { ToastProvider } from "@gluestack-ui/toast";
 import { colorScheme as colorSchemeNW } from "nativewind";
 import type React from "react";
 import {
-	type ColorSchemeName,
-	View,
-	type ViewProps,
-	useColorScheme,
+  type ColorSchemeName,
+  View,
+  type ViewProps,
+  useColorScheme,
 } from "react-native";
 import { config } from "./config";
 
 type ModeType = "light" | "dark" | "system";
 
 const getColorSchemeName = (
-	colorScheme: ColorSchemeName,
-	mode: ModeType,
+  colorScheme: ColorSchemeName,
+  mode: ModeType,
 ): "light" | "dark" => {
-	if (mode === "system") {
-		return colorScheme ?? "light";
-	}
-	return mode;
+  if (mode === "system") {
+    return colorScheme ?? "light";
+  }
+  return mode;
 };
 
 export function GluestackUIProvider({
-	mode = "light",
-	...props
+  mode = "light",
+  ...props
 }: {
-	mode?: "light" | "dark" | "system";
-	children?: React.ReactNode;
-	style?: ViewProps["style"];
+  mode?: "light" | "dark" | "system";
+  children?: React.ReactNode;
+  style?: ViewProps["style"];
 }) {
-	const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme();
 
-	const colorSchemeName = getColorSchemeName(colorScheme, mode);
+  const colorSchemeName = getColorSchemeName(colorScheme, mode);
 
-	colorSchemeNW.set(mode);
+  colorSchemeNW.set(mode);
 
-	return (
-		<View
-			style={[
-				config[colorSchemeName],
-				// eslint-disable-next-line react-native/no-inline-styles
-				{ flex: 1, height: "100%", width: "100%" },
-				props.style,
-			]}
-		>
-			<OverlayProvider>
-				<ToastProvider>{props.children}</ToastProvider>
-			</OverlayProvider>
-		</View>
-	);
+  return (
+    <View
+      style={[
+        config[colorSchemeName],
+        // eslint-disable-next-line react-native/no-inline-styles
+        { flex: 1, height: "100%", width: "100%" },
+        props.style,
+      ]}
+    >
+      <OverlayProvider>
+        <ToastProvider>{props.children}</ToastProvider>
+      </OverlayProvider>
+    </View>
+  );
 }
