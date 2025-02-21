@@ -27,7 +27,11 @@ Make sure you have Node.js version 18.18 or newer installed.
 npm install
 ```
 
-### 3. Run the app
+### 3. Configure environment variables
+
+Copy the `.env.example` file to `.env` and fill in the values.
+
+### 4. Run the app
 
 ```bash
 npm run start
@@ -45,7 +49,7 @@ or start the app on iOS
 npx expo run:ios
 ```
 
-### 4. Install EAS (Expo Application Services)
+### 5. Install EAS (Expo Application Services)
 
 EAS is a set of tools that help you build and deploy your Expo app.
 
@@ -61,7 +65,7 @@ Login into your Expo account:
 eas login
 ```
 
-### 5. Setup your local Supabase project
+### 6. Setup your local Supabase project
 
 Follow the instructions in the [setup guide](https://supabase.com/docs/guides/self-hosting/docker) to setup your local Supabase project with Docker.
 
