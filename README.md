@@ -31,11 +31,11 @@ npm install
 
 Git-flow is a popular branching model that helps you manage your codebase. Follow the instructions in the [setup guide](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to set up git-flow on your local machine.
 
-### 3. Configure environment variables
+### 4. Configure environment variables
 
 Copy the `.env.example` file to `.env` and fill in the values.
 
-### 4. Run the app
+### 5. Run the app
 
 ```bash
 npm run start
@@ -53,7 +53,7 @@ or start the app on iOS
 npx expo run:ios
 ```
 
-### 5. Install EAS (Expo Application Services)
+### 6. Install EAS (Expo Application Services)
 
 EAS is a set of tools that help you build and deploy your Expo app.
 
@@ -69,7 +69,7 @@ Login into your Expo account:
 eas login
 ```
 
-### 6. Setup your local Supabase project
+### 7. Setup your local Supabase project
 
 Follow the instructions in the [setup guide](https://supabase.com/docs/guides/self-hosting/docker) to setup your local Supabase project with Docker.
 
