@@ -16,7 +16,7 @@ This project is a barebones starter for Expo apps written in React Native.
 
 ## Getting started
 
-### 1. Setup your local environement
+### 1. Set up your local environment
 
 Follow the instructions in the [setup guide](https://reactnative.dev/docs/set-up-your-environment).
 Make sure you have Node.js version 18.18 or newer installed.
@@ -31,7 +31,7 @@ npm install
 
 Git-flow is a popular branching model that helps you manage your codebase. Follow the instructions in the [setup guide](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to set up git-flow on your local machine.
 
-The development branch is `develop`. The production branch is `main`. To start a new feature, go to the `develop` branch and run `git flow feature start <feature-name>`. After completing the feature, run `git flow feature finish <feature-name>` to merge the feature into the `develop` branch. You shoudl not push directly to the `main` branch.
+The development branch is `develop`. The production branch is `main`. To start a new feature, go to the `develop` branch and run `git flow feature start <feature-name>`. After completing the feature, run `git flow feature finish <feature-name>` to merge the feature into the `develop` branch. You should not push directly to the `main` branch.
 
 ### 4. Configure environment variables
 
@@ -65,7 +65,7 @@ Install the latest version of EAS CLI:
 npm install -g eas-cli
 ```
 
-Login into your Expo account:
+Log in to your Expo account:
 
 ```bash
 eas login
@@ -98,7 +98,7 @@ Default port to access the Supabase API is `8000`.
 
 To generate the types from the Supabase database go to the Supabase dashboard > API Docs > Tables & Views > Introduction  and click on the "Generate and download types" button. You can then copy the contents of this file into the `database.types.ts` file.
 
-To make the CRUD example work, you need to create a new `Posts` table in the Supabase dashboard with a `title` string attribute and a boolean attribute named `is_active`. Make sur to configure the row access control to only allow authenticated users to read and write data.
+To make the CRUD example work, you need to create a new `Posts` table in the Supabase dashboard with a `title` string attribute and a boolean attribute named `is_active`. Make sure to configure the row access control to only allow authenticated users to read and write data.
 
 ## Generating native code for each platform
 
