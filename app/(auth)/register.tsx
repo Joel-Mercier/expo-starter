@@ -12,7 +12,15 @@ import {
 import { Heading } from "@/components/ui/heading";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
-import { Link } from "expo-router";
+import {
+  Toast,
+  ToastDescription,
+  ToastTitle,
+  useToast,
+} from "@/components/ui/toast";
+import { type SignUpParams, useSupabaseSignUp } from "@/hooks/useSupabaseAuth";
+import useAuth from "@/stores/authStore";
+import { Link, useRouter } from "expo-router";
 import {
   AlertCircleIcon,
   EyeIcon,
@@ -25,98 +33,77 @@ import { Controller, useForm } from "react-hook-form";
 
 export default function RegisterScreen() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const doSignUp = useSupabaseSignUp();
+  const toast = useToast();
+  const setSession = useAuth.use.setSession();
+  const router = useRouter();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<SignUpParams>({
     defaultValues: {
-      firstName: __DEV__ ? "admin" : "",
-      lastName: __DEV__ ? "admin" : "",
-      email: __DEV__ ? "admin@admin.com" : "",
+      email: __DEV__ ? "new@user.com" : "",
       password: __DEV__ ? "abcd1234" : "",
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: SignUpParams) => {
     console.log(data);
+    doSignUp.mutate(data, {
+      onSuccess: ({ data, error }) => {
+        if (error) {
+          toast.show({
+            placement: "top",
+            duration: 3000,
+            render: () => (
+              <Toast action="error">
+                <ToastTitle>Error</ToastTitle>
+                <ToastDescription>{error.message}</ToastDescription>
+              </Toast>
+            ),
+          });
+        }
+        if (data.session && data.user) {
+          setSession(data.session);
+          toast.show({
+            placement: "top",
+            duration: 3000,
+            render: () => (
+              <Toast action="success">
+                <ToastTitle>Success</ToastTitle>
+                <ToastDescription>
+                  You have been successfully registered
+                </ToastDescription>
+              </Toast>
+            ),
+          });
+          router.replace("/(app)/(tabs)");
+        }
+      },
+      onError: (error) => {
+        toast.show({
+          placement: "top",
+          duration: 3000,
+          render: () => (
+            <Toast action="error">
+              <ToastTitle>Error</ToastTitle>
+              <ToastDescription>
+                An error occured while registering
+              </ToastDescription>
+            </Toast>
+          ),
+        });
+        console.error(error);
+      },
+    });
   };
 
   return (
     <SafeAreaView>
       <Box className="px-8">
         <Heading className="mb-6">Register</Heading>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <FormControl
-              isInvalid={!!errors.firstName}
-              size="md"
-              isDisabled={false}
-              isReadOnly={false}
-              isRequired={true}
-              className="mb-5"
-            >
-              <Input size={"md"}>
-                <InputField
-                  type="text"
-                  placeholder="First name"
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                />
-              </Input>
-              {errors.firstName && (
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>
-                    First name required
-                  </FormControlErrorText>
-                </FormControlError>
-              )}
-            </FormControl>
-          )}
-          name="firstName"
-        />
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <FormControl
-              isInvalid={!!errors.lastName}
-              size="md"
-              isDisabled={false}
-              isReadOnly={false}
-              isRequired={true}
-              className="mb-5"
-            >
-              <Input size={"md"}>
-                <InputField
-                  type="text"
-                  placeholder="Last name"
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                />
-              </Input>
-              {errors.lastName && (
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>
-                    Last name required
-                  </FormControlErrorText>
-                </FormControlError>
-              )}
-            </FormControl>
-          )}
-          name="lastName"
-        />
         <Controller
           control={control}
           rules={{

@@ -98,6 +98,7 @@ Default port to access the Supabase API is `8000`.
 
 To generate the types from the Supabase database go to the Supabase dashboard > API Docs > Tables & Views > Introduction  and click on the "Generate and download types" button. You can then copy the contents of this file into the `database.types.ts` file.
 
+To make the CRUD example work, you need to create a new `Posts` table in the Supabase dashboard with a `title` string attribute and a boolean attribute named `is_active`. Make sur to configure the row access control to only allow authenticated users to read and write data.
 
 ## Generating native code for each platform
 
@@ -125,6 +126,10 @@ You can combine the `--profile` and `--platform` flags to build for a specific p
 You can find the available profiles in the `eas.json` file.
 
 ## Linting and formatting
+
+This project uses [biome](https://biomejs.dev/) for linting and formatting the code.
+Install the relevant plugins for your IDE to get the same functionality.
+A configuration file for VSCode is included in the project.
 
 To lint and format the code, run the following command:
 

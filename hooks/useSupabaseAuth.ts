@@ -6,6 +6,11 @@ export interface LoginParams {
   password: string;
 }
 
+export interface SignUpParams {
+  email: string;
+  password: string;
+}
+
 export interface ResetPasswordParams {
   email: string;
 }
@@ -27,6 +32,19 @@ export function useSupabaseLogout() {
   return useMutation({
     mutationFn: async () => {
       const response = await supabase.auth.signOut();
+
+      return response;
+    },
+  });
+}
+
+export function useSupabaseSignUp() {
+  return useMutation({
+    mutationFn: async (data: SignUpParams) => {
+      const response = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+      });
 
       return response;
     },

@@ -57,7 +57,7 @@ export default function RootLayout() {
     return () => {
       subscription.remove();
     };
-  }, [loaded]);
+  }, [loaded, setTheme]);
 
   if (!loaded) {
     return null;
