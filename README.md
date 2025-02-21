@@ -27,6 +27,10 @@ Make sure you have Node.js version 18.18 or newer installed.
 npm install
 ```
 
+### 3. Setup git-flow
+
+Git-flow is a popular branching model that helps you manage your codebase. Follow the instructions in the [setup guide](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to set up git-flow on your local machine.
+
 ### 3. Configure environment variables
 
 Copy the `.env.example` file to `.env` and fill in the values.
