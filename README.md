@@ -27,7 +27,7 @@ Make sure you have Node.js version 18.18 or newer installed.
 npm install
 ```
 
-### 3. Setup git-flow
+### 3. Set up git-flow
 
 Git-flow is a popular branching model that helps you manage your codebase. Follow the instructions in the [setup guide](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to set up git-flow on your local machine.
 
@@ -71,7 +71,7 @@ Log in to your Expo account:
 eas login
 ```
 
-### 7. Setup your local Supabase project
+### 7. Set up your local Supabase project
 
 Follow the instructions in the [setup guide](https://supabase.com/docs/guides/self-hosting/docker) to setup your local Supabase project with Docker.
 
