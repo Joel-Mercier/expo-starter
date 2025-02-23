@@ -73,7 +73,9 @@ cp .env.example .env
 ```
 Fill in the values with `http://<your-local-ip>:8000` and value of `SUPABASE_ANON_KEY` from `supabase/apps/studio/.env`.
 
-### 5. Run the app
+It will only work with a device on the same network, `localhost` is fine for testing on the same machine.
+
+### 6. Run the app
 
 ```bash
 npm run start
