@@ -37,6 +37,10 @@ The development branch is `develop`. The production branch is `main`. To start a
 
 Copy the `.env.example` file to `.env` and fill in the values.
 
+```bash
+cp .env.example .env
+```
+
 ### 5. Run the app
 
 ```bash
@@ -99,6 +103,8 @@ Default port to access the Supabase API is `8000`.
 To generate the types from the Supabase database go to the Supabase dashboard > API Docs > Tables & Views > Introduction  and click on the "Generate and download types" button. You can then copy the contents of this file into the `database.types.ts` file.
 
 To make the CRUD example work, you need to create a new `Posts` table in the Supabase dashboard with a `title` string attribute and a boolean attribute named `is_active`. Make sure to configure the row access control to only allow authenticated users to read and write data.
+
+For local development on a real device, make sure your mobile device and your computer are on the same network and replace `localhost` with your local IP (`192.168.X.X`) in the Supabase URL.
 
 ## Generating native code for each platform
 
