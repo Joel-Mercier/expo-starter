@@ -1,3 +1,4 @@
+import { themeConfig } from "@/config/theme";
 import { Tabs } from "expo-router";
 import { Home, Settings } from "lucide-react-native";
 import React from "react";
@@ -7,6 +8,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: themeConfig.theme.colors.brand,
       }}
     >
       <Tabs.Screen

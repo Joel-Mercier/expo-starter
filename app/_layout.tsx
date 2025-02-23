@@ -16,6 +16,7 @@ import { ThemeStorage } from "@/utils/themeStorage";
 import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import { OverlayProvider } from "@gluestack-ui/overlay";
 import { ToastProvider } from "@gluestack-ui/toast";
+import NetInfo from "@react-native-community/netinfo";
 import {
   QueryClient,
   QueryClientProvider,
@@ -23,6 +24,7 @@ import {
   onlineManager,
 } from "@tanstack/react-query";
 import { AppState, type AppStateStatus, Platform } from "react-native";
+import { DevToolsBubble } from "react-native-react-query-devtools";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -34,6 +36,12 @@ function onAppStateChange(status: AppStateStatus) {
     focusManager.setFocused(status === "active");
   }
 }
+
+onlineManager.setEventListener((setOnline) => {
+  return NetInfo.addEventListener((state) => {
+    setOnline(!!state.isConnected);
+  });
+});
 
 export default function RootLayout() {
   const theme = useApp.use.theme();
@@ -47,17 +55,19 @@ export default function RootLayout() {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-    const subscription = AppState.addEventListener("change", onAppStateChange);
     (async () => {
       const savedTheme = (await ThemeStorage.getTheme()) as Theme;
       if (savedTheme) {
         setTheme(savedTheme);
       }
     })();
-    return () => {
-      subscription.remove();
-    };
   }, [loaded, setTheme]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", onAppStateChange);
+
+    return () => subscription.remove();
+  }, []);
 
   if (!loaded) {
     return null;
@@ -79,6 +89,7 @@ export default function RootLayout() {
           </ToastProvider>
         </OverlayProvider>
       </GluestackUIProvider>
+      {__DEV__ && <DevToolsBubble />}
     </QueryClientProvider>
   );
 }

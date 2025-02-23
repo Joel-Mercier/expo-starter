@@ -50,7 +50,6 @@ export default function LoginScreen() {
   });
 
   const onSubmit = (data: LoginParams) => {
-    console.log(data);
     doLogin.mutate(data, {
       onSuccess: ({ data, error }) => {
         if (error) {
