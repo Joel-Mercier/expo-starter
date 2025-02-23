@@ -31,47 +31,9 @@ npm install
 
 Git-flow is a popular branching model that helps you manage your codebase. Follow the instructions in the [setup guide](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to set up git-flow on your local machine.
 
-The development branch is `develop`. The production branch is `main`. To start a new feature, go to the `develop` branch and run `git flow feature start <feature-name>`. After completing the feature, run `git flow feature finish <feature-name>` to merge the feature into the `develop` branch. You should not push directly to the `main` branch.
+The development branch is `develop`. The production branch is `main`. To start a new feature, go to the `develop` branch and run `git flow feature start <feature-name>`. After completing the feature, run `git flow feature publish <feature-name>` to push the new branch to origin. Then create a pull request to merge the feature into the `develop` branch. You should not push directly to the either branch.
 
-### 4. Configure environment variables
-
-Copy the `.env.example` file to `.env` and fill in the values.
-
-### 5. Run the app
-
-```bash
-npm run start
-```
-
-or start the app on Android
-
-```bash
-npx expo run:android
-```
-
-or start the app on iOS
-
-```bash
-npx expo run:ios
-```
-
-### 6. Install EAS (Expo Application Services)
-
-EAS is a set of tools that help you build and deploy your Expo app.
-
-Install the latest version of EAS CLI:
-
-```bash
-npm install -g eas-cli
-```
-
-Log in to your Expo account:
-
-```bash
-eas login
-```
-
-### 7. Set up your local Supabase project
+### 4. Set up your local Supabase project
 
 Follow the instructions in the [setup guide](https://supabase.com/docs/guides/self-hosting/docker) to setup your local Supabase project with Docker.
 
@@ -99,6 +61,46 @@ Default port to access the Supabase API is `8000`.
 To generate the types from the Supabase database go to the Supabase dashboard > API Docs > Tables & Views > Introduction  and click on the "Generate and download types" button. You can then copy the contents of this file into the `database.types.ts` file.
 
 To make the CRUD example work, you need to create a new `Posts` table in the Supabase dashboard with a `title` string attribute and a boolean attribute named `is_active`. Make sure to configure the row access control to only allow authenticated users to read and write data.
+
+If the supabase-pooler continually restarts, change the line ending of supabase\docker\volumes\pooler\pooler.exs from CRLF to LF and then re-start the service.
+
+### 5. Configure environment variables for this project
+
+Copy the `.env.example` file to `.env` and fill in the values with `http://<your-local-ip>:8000` and value of `SUPABASE_ANON_KEY` from `supabase/apps/studio/.env`.
+
+### 6. Run the app
+
+```bash
+npm run start
+```
+
+or start the app on Android
+
+```bash
+npx expo run:android
+```
+
+or start the app on iOS
+
+```bash
+npx expo run:ios
+```
+
+### 7. Install EAS (Expo Application Services)
+
+EAS is a set of tools that help you build and deploy your Expo app.
+
+Install the latest version of EAS CLI:
+
+```bash
+npm install -g eas-cli
+```
+
+Log in to your Expo account:
+
+```bash
+eas login
+```
 
 ## Generating native code for each platform
 
