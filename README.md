@@ -66,9 +66,14 @@ If the supabase-pooler continually restarts, change the line ending of supabase\
 
 ### 5. Configure environment variables for this project
 
-Copy the `.env.example` file to `.env` and fill in the values with `http://<your-local-ip>:8000` and value of `SUPABASE_ANON_KEY` from `supabase/apps/studio/.env`.
+Copy the `.env.example` file to `.env`.
 
-### 6. Run the app
+```bash
+cp .env.example .env
+```
+Fill in the values with `http://<your-local-ip>:8000` and value of `SUPABASE_ANON_KEY` from `supabase/apps/studio/.env`.
+
+### 5. Run the app
 
 ```bash
 npm run start
