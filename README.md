@@ -31,7 +31,7 @@ npm install
 
 Git-flow is a popular branching model that helps you manage your codebase. Follow the instructions in the [setup guide](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to set up git-flow on your local machine.
 
-The development branch is `develop`. The production branch is `main`. To start a new feature, go to the `develop` branch and run `git flow feature start <feature-name>`. After completing the feature, run `git flow feature publish <feature-name>` to push the new branch to origin. Then create a pull request to merge the feature into the `develop` branch. You should not push directly to the either branch.
+The development branch is `develop`. The production branch is `main`. To start a new feature, go to the `develop` branch and run `git flow feature start <feature-name>`. After completing the feature, run `git flow feature publish <feature-name>` to push the new branch to origin. Then create a pull request to merge the feature into the `develop` branch. You should not push directly to either the `develop` or `main` branches.
 
 ### 4. Set up your local Supabase project
 
@@ -71,9 +71,10 @@ Copy the `.env.example` file to `.env`.
 ```bash
 cp .env.example .env
 ```
-Fill in the values with `http://<your-local-ip>:8000` and value of `SUPABASE_ANON_KEY` from `supabase/apps/studio/.env`.
 
-It will only work with a device on the same network, `localhost` is fine for testing on the same machine.
+The value for `SUPABASE_URL` should be `http://<your-local-ip>:8000` if you are running the app on a real device on the same network or `http://localhost:8000` if you are running the app on your local machine. If you changed the port in the supabase/docker/.env file, make sure to update the value accordingly.
+
+Fill in the value of `SUPABASE_ANON_KEY` from `supabase/docker/.env`.
 
 ### 6. Run the app
 
