@@ -11,7 +11,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { supabase } from "@/services/supabase";
 import useApp, { type Theme } from "@/stores/appStore";
+import useAuth from "@/stores/authStore";
 import { ThemeStorage } from "@/utils/themeStorage";
 import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import { OverlayProvider } from "@gluestack-ui/overlay";
@@ -44,6 +46,7 @@ onlineManager.setEventListener((setOnline) => {
 });
 
 export default function RootLayout() {
+  const setSession = useAuth.use.setSession();
   const theme = useApp.use.theme();
   const setTheme = useApp.use.setTheme();
   const [loaded] = useFonts({
@@ -63,7 +66,15 @@ export default function RootLayout() {
     })();
   }, [loaded, setTheme]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
     const subscription = AppState.addEventListener("change", onAppStateChange);
 
     return () => subscription.remove();

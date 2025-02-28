@@ -1,6 +1,7 @@
 import type { Theme } from "@/stores/appStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class ThemeStorage {
   static THEME = "THEME";
 
