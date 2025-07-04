@@ -135,6 +135,8 @@ eas build --platform android
 You can combine the `--profile` and `--platform` flags to build for a specific profile and platform.
 You can find the available profiles in the `eas.json` file.
 
+You can also build the app locally by adding the `--local` flag.
+
 ## Linting and formatting
 
 This project uses [biome](https://biomejs.dev/) for linting and formatting the code.

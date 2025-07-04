@@ -8,7 +8,6 @@ import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { supabase } from "@/services/supabase";
@@ -28,6 +27,12 @@ import {
 import { AppState, type AppStateStatus, Platform } from "react-native";
 import { DevToolsBubble } from "react-native-react-query-devtools";
 import "@/config/i18n";
+import i18n, {
+  SupportedLanguages,
+  type TSupportedLanguages,
+} from "@/config/i18n";
+import { getLocales } from "expo-localization";
+import { SystemBars } from "react-native-edge-to-edge";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -50,6 +55,8 @@ export default function RootLayout() {
   const setSession = useAuth.use.setSession();
   const theme = useApp.use.theme();
   const setTheme = useApp.use.setTheme();
+  const locale = useApp.use.locale();
+  const setLocale = useApp.use.setLocale();
   const [loaded] = useFonts({
     Inter_400Regular,
     Inter_700Bold,
@@ -81,6 +88,32 @@ export default function RootLayout() {
     return () => subscription.remove();
   }, []);
 
+  useEffect(() => {
+    if (locale) {
+      i18n.changeLanguage(locale);
+    } else {
+      const userLocales = getLocales();
+      if (
+        userLocales.some(
+          (userLocale) =>
+            userLocale.languageCode &&
+            (SupportedLanguages as string[]).includes(userLocale.languageCode),
+        )
+      ) {
+        const firstMatchingLocale = userLocales.filter(
+          (userLocale) =>
+            userLocale.languageCode &&
+            (SupportedLanguages as string[]).includes(userLocale.languageCode),
+        )[0].languageCode as TSupportedLanguages;
+        setLocale(firstMatchingLocale);
+        i18n.changeLanguage(firstMatchingLocale);
+      } else {
+        setLocale("en");
+        i18n.changeLanguage("en");
+      }
+    }
+  }, []);
+
   if (!loaded) {
     return null;
   }
@@ -96,7 +129,7 @@ export default function RootLayout() {
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
               </Stack>
-              <StatusBar style="auto" />
+              <SystemBars style="auto" />
             </ThemeProvider>
           </ToastProvider>
         </OverlayProvider>

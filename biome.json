@@ -20,7 +20,13 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "correctness": {
+        "useExhaustiveDependencies": "info"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "info"
+      }
     }
   },
   "javascript": {

@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: "#6366f1",
+        brand: "#00A0FF",
         primary: {
           0: "rgb(var(--color-primary-0)/<alpha-value>)",
           50: "rgb(var(--color-primary-50)/<alpha-value>)",
@@ -174,7 +174,7 @@ module.exports = {
         heading: ["Inter", "sans-serif"],
         body: ["Inter", "sans-serif"],
         mono: undefined,
-        inter: ["Inter", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
       fontWeight: {
         extrablack: "950",
