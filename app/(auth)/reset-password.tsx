@@ -37,7 +37,7 @@ export default function ResetPasswordScreen() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={["top"]}>
       <Box className="px-8">
         <Heading className="mb-6">Login</Heading>
         <Controller

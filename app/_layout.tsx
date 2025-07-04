@@ -27,6 +27,7 @@ import {
 } from "@tanstack/react-query";
 import { AppState, type AppStateStatus, Platform } from "react-native";
 import { DevToolsBubble } from "react-native-react-query-devtools";
+import "@/config/i18n";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

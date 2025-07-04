@@ -31,8 +31,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { AlertCircleIcon, ArrowRightCircle } from "lucide-react-native";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
   const toast = useToast();
   const queryClient = useQueryClient();
   const { data, error, isLoading } = useSupabaseQuery<Tables<"Posts">[]>(
@@ -126,7 +128,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1" edges={["top"]}>
       <Box className="flex-1">
         <FlashList
           data={data}
@@ -139,7 +141,7 @@ export default function HomeScreen() {
           ListHeaderComponent={() => (
             <Box className="">
               <Heading size="xl" className="mb-8">
-                Welcome to Expo Starter
+                {t("app.home.title")}
               </Heading>
               <Center className="mb-4">
                 <Text>👋 Happy coding !</Text>

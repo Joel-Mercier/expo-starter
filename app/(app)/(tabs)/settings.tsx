@@ -30,8 +30,10 @@ import { useSupabaseLogout } from "@/hooks/useSupabaseAuth";
 import useApp from "@/stores/appStore";
 import useAuth from "@/stores/authStore";
 import * as Application from "expo-application";
-import { ChevronRight, Icon, LogOut, TrashIcon } from "lucide-react-native";
+import { Link } from "expo-router";
+import { ChevronRight, LogOut } from "lucide-react-native";
 import { useState } from "react";
+import { TouchableOpacity } from "react-native";
 
 export default function SettingsScreen() {
   const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
@@ -94,7 +96,7 @@ export default function SettingsScreen() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={["top"]}>
       <Box className="px-8">
         <Heading size="xl" className="mb-6">
           Settings
@@ -113,6 +115,22 @@ export default function SettingsScreen() {
               />
             </HStack>
           </Card>
+          <Divider />
+          <Link href={"/(app)/language"} asChild>
+            <TouchableOpacity>
+              <Card size="lg" variant="ghost" className="px-8">
+                <HStack className="justify-between">
+                  <Heading size="md" className="mb-1">
+                    Change language
+                  </Heading>
+                  <ChevronRight
+                    size={24}
+                    color={themeConfig.theme.colors.gray[500]}
+                  />
+                </HStack>
+              </Card>
+            </TouchableOpacity>
+          </Link>
           <Divider />
           <Card size="lg" variant="ghost" className="px-8">
             <HStack className="justify-between">

@@ -1,10 +1,9 @@
 import useAuth from "@/stores/authStore";
-// import { useAccount } from '@/hooks/api/useAccount';
-import { Redirect, Stack } from "expo-router";
-import { useEffect } from "react";
+import { Redirect, Stack, useRouter } from "expo-router";
 
 export default function AppLayout() {
   const session = useAuth.use.session();
+  const router = useRouter();
 
   if (!session) {
     // On web, static rendering will stop here as the user is not authenticated
@@ -13,8 +12,13 @@ export default function AppLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="language" />
     </Stack>
   );
 }

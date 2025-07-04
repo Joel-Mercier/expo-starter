@@ -101,7 +101,7 @@ export default function RegisterScreen() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={["top"]}>
       <Box className="px-8">
         <Heading className="mb-6">Register</Heading>
         <Controller
