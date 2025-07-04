@@ -9,7 +9,12 @@ export function useSupabaseQuery<T>(
   options?: {
     limit?: number;
     select?: string;
-    order?: { column: string; ascending?: boolean; nullsFirst?: boolean; referencedTable?: string };
+    order?: {
+      column: string;
+      ascending?: boolean;
+      nullsFirst?: boolean;
+      referencedTable?: string;
+    };
     range?: { from: number; to: number };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     eq?: { column: string; value: any };
@@ -74,7 +79,11 @@ export function useSupabaseQuery<T>(
       }
 
       if (options?.order && options?.order !== undefined) {
-        query = query.order(options.order.column, { ascending: options.order.ascending, nullsFirst: options.order.nullsFirst, referencedTable: options.order.referencedTable });
+        query = query.order(options.order.column, {
+          ascending: options.order.ascending,
+          nullsFirst: options.order.nullsFirst,
+          referencedTable: options.order.referencedTable,
+        });
       }
 
       if (options?.range && options?.range !== undefined) {

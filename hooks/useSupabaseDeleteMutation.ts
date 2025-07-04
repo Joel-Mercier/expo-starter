@@ -8,7 +8,7 @@ export function useSupabaseDeleteMutation<T>(
 ) {
   return useMutation({
     mutationFn: async (options: {
-      count?: Count,
+      count?: Count;
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       eq?: { column: string; value: any };
       gt?: { column: string; value: string | number | boolean | null };
@@ -21,9 +21,7 @@ export function useSupabaseDeleteMutation<T>(
       in?: { column: string; values: string[] | number[] | boolean[] | null[] };
       neq?: { column: string; value: string | number | boolean | null };
     }) => {
-      let query = supabase
-        .from(tableName)
-        .delete()
+      let query = supabase.from(tableName).delete();
 
       if (options?.eq && options?.eq !== undefined) {
         query = query.eq(options.eq.column, options.eq.value);

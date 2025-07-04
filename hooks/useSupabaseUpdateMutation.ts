@@ -7,9 +7,13 @@ export function useSupabaseUpdateMutation<T>(
   tableName: keyof Database["public"]["Tables"],
 ) {
   return useMutation({
-    mutationFn: async ({ updatedData, options }: {
-      updatedData: TablesUpdate<typeof tableName>, options: {
-        count?: Count,
+    mutationFn: async ({
+      updatedData,
+      options,
+    }: {
+      updatedData: TablesUpdate<typeof tableName>;
+      options: {
+        count?: Count;
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         eq?: { column: string; value: any };
         gt?: { column: string; value: string | number | boolean | null };
@@ -19,13 +23,14 @@ export function useSupabaseUpdateMutation<T>(
         like?: { column: string; value: string };
         ilike?: { column: string; value: string };
         is?: { column: string; value: boolean };
-        in?: { column: string; values: string[] | number[] | boolean[] | null[] };
+        in?: {
+          column: string;
+          values: string[] | number[] | boolean[] | null[];
+        };
         neq?: { column: string; value: string | number | boolean | null };
-      }
+      };
     }) => {
-      let query = supabase
-        .from(tableName)
-        .update(updatedData)
+      let query = supabase.from(tableName).update(updatedData);
 
       if (options?.eq && options?.eq !== undefined) {
         query = query.eq(options.eq.column, options.eq.value);
