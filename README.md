@@ -110,6 +110,12 @@ Log in to your Expo account:
 eas login
 ```
 
+Initialize EAS in the project if not already done:
+
+```bash
+eas init
+```
+
 ## Generating native code for each platform
 
 To generate native code for each platform, run the following command:
