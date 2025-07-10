@@ -3,15 +3,17 @@ import type { StateStorage } from "zustand/middleware";
 
 export const storage = new MMKV();
 
-export const zustandStorage: StateStorage = {
-  setItem: (name, value) => {
-    return storage.set(name, value);
+export const standardStorage = {
+  setItem: (key: string, value: boolean | string | number | ArrayBuffer) => {
+    return storage.set(key, value);
   },
-  getItem: (name) => {
-    const value = storage.getString(name);
+  getItem: (key: string) => {
+    const value = storage.getString(key);
     return value ?? null;
   },
-  removeItem: (name) => {
-    return storage.delete(name);
+  removeItem: (key: string) => {
+    return storage.delete(key);
   },
 };
+
+export const zustandStorage: StateStorage = standardStorage

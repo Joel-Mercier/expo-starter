@@ -1,7 +1,6 @@
 import i18n, { type TSupportedLanguages } from "@/config/i18n";
 import { zustandStorage } from "@/config/storage";
 import createSelectors from "@/utils/createSelectors";
-import { ThemeStorage } from "@/utils/themeStorage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -15,23 +14,6 @@ interface AppStore {
   setLocale: (locale: TSupportedLanguages) => void;
 }
 
-// const useAppBase = create<AppStore>()((set) => ({
-//   theme: "light",
-//   setTheme: (theme: Theme) => {
-//     set(() => {
-//       ThemeStorage.storeTheme(theme);
-//       return { theme };
-//     });
-//   },
-//   toggleTheme: () => {
-//     set((state) => {
-//       const newTheme = state.theme === "light" ? "dark" : "light";
-//       ThemeStorage.storeTheme(newTheme);
-//       return { theme: newTheme };
-//     });
-//   },
-// }));
-
 const useAppBase = create<AppStore>()(
   persist(
     (set) => ({
@@ -43,14 +25,12 @@ const useAppBase = create<AppStore>()(
       theme: "light",
       setTheme: (theme: Theme) => {
         set(() => {
-          ThemeStorage.storeTheme(theme);
           return { theme };
         });
       },
       toggleTheme: () => {
         set((state) => {
           const newTheme = state.theme === "light" ? "dark" : "light";
-          ThemeStorage.storeTheme(newTheme);
           return { theme: newTheme };
         });
       },

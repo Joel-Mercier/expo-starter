@@ -13,7 +13,6 @@ import "react-native-reanimated";
 import { supabase } from "@/services/supabase";
 import useApp, { type Theme } from "@/stores/appStore";
 import useAuth from "@/stores/authStore";
-import { ThemeStorage } from "@/utils/themeStorage";
 import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 import { OverlayProvider } from "@gluestack-ui/overlay";
 import { ToastProvider } from "@gluestack-ui/toast";
@@ -54,7 +53,6 @@ onlineManager.setEventListener((setOnline) => {
 export default function RootLayout() {
   const setSession = useAuth.use.setSession();
   const theme = useApp.use.theme();
-  const setTheme = useApp.use.setTheme();
   const locale = useApp.use.locale();
   const setLocale = useApp.use.setLocale();
   const [loaded] = useFonts({
@@ -66,13 +64,7 @@ export default function RootLayout() {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-    (async () => {
-      const savedTheme = (await ThemeStorage.getTheme()) as Theme;
-      if (savedTheme) {
-        setTheme(savedTheme);
-      }
-    })();
-  }, [loaded, setTheme]);
+  }, [loaded]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {

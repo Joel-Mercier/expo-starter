@@ -2,8 +2,16 @@ export default {
   translation: {
     app: {
       home: {
-        title: "Bienvue sur Expo Starter",
+        title: "Bienvenue sur Expo Starter",
       },
+      settings: {
+        language: {
+          options: {
+            fr: "Français",
+            en: "English",
+          }
+        }
+      }
     },
   },
 };
